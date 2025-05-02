@@ -8,6 +8,7 @@ const app = express()
 const connectToDb = require('./database/db')
 connectToDb()
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 app.use(express.json())
 app.use(express.urlencoded({ extended : true}))
@@ -16,6 +17,11 @@ app.use(cookieParser())
 app.get('/', (req, res) => {
     res.send('hello sunny')
 })
+
+
+app.use(cors({
+    origin: 'https://task-tracker-rms3.onrender.com/'
+  }));
 
 app.use('/users', userRoutes)
 app.use('/project',projectRoutes)

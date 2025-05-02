@@ -17,7 +17,7 @@ module.exports.createProject = async (req, res) => {
       const project = new projectModel({ name, description, owner });
       await project.save();
   
-      res.status(201).json(project);
+      res.status(201).json({data : project});
     } catch (error) {
       res.status(500).json({ error: 'Failed to create project' });
     }
@@ -30,7 +30,7 @@ module.exports.createProject = async (req, res) => {
       const { projectId } = req.params;
   
       const project = await projectModel.findById(projectId).populate('tasks');
-      res.status(200).json(project);
+      res.status(200).json({data : project});
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch tasks' });
     }
@@ -68,7 +68,7 @@ module.exports.createProject = async (req, res) => {
       project.status = status;
       await project.save();
   
-      res.status(200).json({ message: 'Project status updated', project });
+      res.status(200).json({ message: 'Project status updated', data: project });
     } catch (error) {
       res.status(500).json({ error: 'Failed to update project status' });
     }

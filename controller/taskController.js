@@ -19,7 +19,7 @@ module.exports.createTask = async (req, res) => {
     project.tasks.push(task._id);
     await project.save();
 
-    res.status(201).json(task);
+    res.status(201).json({data : task});
   } catch (error) {
     res.status(500).json({ error: 'Failed to create task' });
   }
@@ -32,7 +32,7 @@ module.exports.readTask =async (req, res) => {
 
     if(!task) return res.status(404).json({error : 'task not found'})
 
-      res.status(200).json(task)
+      res.status(200).json({data : task})
 
   }catch(error){
     console.log(error);
@@ -70,7 +70,7 @@ module.exports.readTask =async (req, res) => {
       }
       await task.save();
   
-      res.status(200).json({ message: 'Project status updated', task });
+      res.status(200).json({ message: 'Project status updated', data : task });
     } catch (error) {
       res.status(500).json({ error: 'Failed to update project status' });
     }
@@ -87,7 +87,7 @@ module.exports.readTask =async (req, res) => {
         if(description) task.description = description;
 
         await task.save()
-        res.status(201).json({message: 'task updated sucessfully', task})
+        res.status(201).json({message: 'task updated sucessfully', data:task})
 
     }catch(error){
       console.log(error);
